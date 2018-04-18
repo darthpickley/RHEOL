@@ -9,11 +9,13 @@
 % #xx
 
 %create file
-fileName = 'out_file.txt';
+if (exist('fileName')==0)
+    fileName = 'out_file.txt';
+end
 fileID = fopen(fileName,'w');
 comments = true;
 
-fprintf(fileID,'## rheology script - 11/25/17\n\n');
+fprintf(fileID,'## rheology script - 4/18/18\n\n');
 
 
 if (comments)
@@ -80,6 +82,7 @@ else
 end
 
 fclose(fileID);
+
 
 
 

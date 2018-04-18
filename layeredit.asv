@@ -1,7 +1,28 @@
 function varargout = layeredit(varargin)
 % LAYEREDIT MATLAB code for layeredit.fig
+%      LAYEREDIT, by itself, creates a new LAYEREDIT or raises the existing
+%      singleton*.
+%
+%      H = LAYEREDIT returns the handle to a new LAYEREDIT or the handle to
+%      the existing singleton*.
+%
+%      LAYEREDIT('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in LAYEREDIT.M with the given input arguments.
+%
+%      LAYEREDIT('Property','Value',...) creates a new LAYEREDIT or raises the
+%      existing singleton*.  Starting from the left, property value pairs are
+%      applied to the GUI before layeredit_OpeningFcn gets called.  An
+%      unrecognized property name or invalid value makes property application
+%      stop.  All inputs are passed to layeredit_OpeningFcn via varargin.
+%
+%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
+%      instance to run (singleton)".
+%
+% See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Last Modified by GUIDE v2.5 18-Apr-2018 14:28:50
+% Edit the above text to modify the response to help layeredit
+
+% Last Modified by GUIDE v2.5 18-Apr-2018 14:02:09
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -294,7 +315,6 @@ mglobal.G = str2double(handles.Tgradebox.String);
 mglobal.Ti = str2double(handles.Tadiabox.String);
 mglobal.Ts = str2double(handles.Tsurfbox.String);
 mglobal.P0 = str2double(handles.P0box.String);
-mglobal.g = str2double(handles.gravbox.String);
 
 mglobal.thid = handles.tempmenu.Value;
 mglobal.ip = handles.planetmenu.Value;
@@ -745,11 +765,11 @@ did = mglobal.did;      % deformation id
 e = mglobal.e;          % strain rate
 ip = mglobal.ip;        % planet id
 
-Ts = mglobal.Ts;        % surface temp
-Ti = mglobal.Ti;        % adiabatic temp
-G = mglobal.G;          % thermal gradient
+Ts = mglobal.Ts;
+Ti = mglobal.Ti;
+G = mglobal.G;
 P0 = mglobal.P0;        % surface pressure
-g = mglobal.g;          % gravity
+g = mglobal.g;
 load planet;
 load rock;
 
@@ -818,13 +838,17 @@ else
     set(handles.gsizebox,'Enable','off');
 end
 
-% global vars
+% Tgradebox
+% Tsurfbox
+% Tadiabox
+% planetmenu
+% tempmenu
+
 set(handles.strainbox,'String',e);
 set(handles.Tgradebox,'String',G);
 set(handles.Tadiabox,'String',Ti);
 set(handles.Tsurfbox,'String',Ts);
 set(handles.P0box,'String',P0);
-set(handles.gravbox,'String',g);
 
 set(handles.tempmenu,'String',["linear","error fn"]);
 set(handles.tempmenu,'Value',thid);
@@ -846,7 +870,6 @@ newhandles = handles;
 % planetmenu
 % tempmenu
 % P0box
-% gravbox
 
 
 function Tsurfbox_Callback(hObject, eventdata, handles)
@@ -932,21 +955,6 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-function gravbox_Callback(hObject, eventdata, handles)
-% Hints: get(hObject,'String') returns contents of gravbox as text
-%        str2double(get(hObject,'String')) returns contents of gravbox as a double
-set(handles.changebutton1,'String','Change (changes unsaved)');
-set(handles.changebutton1,'Enable','on');
-handles.unsaved = 1;
-
-% --- Executes during object creation, after setting all properties.
-function gravbox_CreateFcn(hObject, eventdata, handles)
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
 % --- Executes on selection change in planetmenu.
 function planetmenu_Callback(hObject, eventdata, handles)
 % Hints: contents = cellstr(get(hObject,'String')) returns planetmenu contents as cell array
@@ -967,24 +975,12 @@ end
 % --- Executes on button press in defaultbutton.
 function defaultbutton_Callback(hObject, eventdata, handles)
 
-load planet;
-
-ip = handles.planetmenu.Value;
-
 Ts=planet(ip).env.Ts;
 Ti=planet(ip).env.Ti;
 G=planet(ip).env.G;
 P0=planet(ip).env.P0;
 g=planet(ip).global.gravity;
 
-set(handles.Tgradebox,'String',G);
-set(handles.Tadiabox,'String',Ti);
-set(handles.Tsurfbox,'String',Ts);
-set(handles.P0box,'String',P0);
-set(handles.gravbox,'String',g);
 
-set(handles.changebutton1,'String','Change (changes unsaved)');
-set(handles.changebutton1,'Enable','on');
-handles.unsaved = 1;
 
 

@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% bluid_planet
+% build_planet
 %
 % Contruct array of planetary data
 % Laurent Montesi, 09-30-2002

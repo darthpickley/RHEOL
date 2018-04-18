@@ -1,4 +1,4 @@
-%Parameter for type of deforamtion 
+%Parameter for type of deformation 
 disp(sprintf('%4d: %s',1,'Compression'));
 disp(sprintf('%4d: %s',2,'Extension'));
 disp(sprintf('%4d: %s',3,'Strike-slip'));

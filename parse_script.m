@@ -1,8 +1,11 @@
 %parse script
 
 
+if (~exist('fname') || isempty(fname))
+    fname = 'input_file.txt';
+end
 
-fstring = fileread('input_file.txt');
+fstring = fileread(fname);
 fxxblx = regexp(fstring,'\n#xx','split');
 
 initc = splitlines(fxxblx{1});  %initial codes
@@ -157,7 +160,7 @@ for il = 1:(length(fxxblx)-1)
         end
     end
     
-    disp('    x');
+    %disp('    x');
     if ~isempty(model(il).irock);
         
         %% thickness
